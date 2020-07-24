@@ -52,7 +52,13 @@ Usage
 2. Access the Inputs section of the device
 3. Create an input. You must define a serial, passphrase, function and model
 
-The function that the system will call must be of the following kind::
+There are two endpoints you can use:
+1. /iot/<serial>/action
+2. /iot/<serial>/action2
+Both take the same `application/x-www-form-urlencoded` parameters:
+passphase, value (where value is a JSON object)
+
+Endpoint 1 requires the function that the system will call must be of the following kind::
 
     @api.model
         def call_function(self, key):
@@ -60,6 +66,18 @@ The function that the system will call must be of the following kind::
 
 Where `key` is the input string send by the device and the result must be a dictionary
 that will be responded to the device as a JSON.
+
+Endpoint 2 has better error reporting and must always return a JSON with status and message.
+It requires the function that the system will call must be of the following kind::
+
+    @api.model
+        def call_function(self, key):
+        'do something
+        if err:
+            return {'status': 'error', 'message': 'The error message you want to send to the device'}
+        return {'status': 'ok', 'message': 'Optional success message'}
+
+Where `key` is the input string send by the device
 
 Bug Tracker
 ===========
@@ -83,6 +101,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Enric Tobella <etobella@creublanca.es>
+* Dimitrios Tanis <dtanis@tanisfood.gr>
 
 Maintainers
 ~~~~~~~~~~~
