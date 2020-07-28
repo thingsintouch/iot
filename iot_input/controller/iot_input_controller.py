@@ -3,6 +3,10 @@
 
 import json
 from odoo import http, _
+import logging
+import traceback
+from io import StringIO
+logger = logging.getLogger(__name__)
 
 
 class CallIot(http.Controller):
@@ -24,15 +28,25 @@ class CallIot(http.Controller):
         if not request.env:
             return json.dumps({'status': 'error',
                                'message': _('env not set')})
-        if 'passphrase' not in kwargs:
-            return json.dumps({'status': 'error',
-                               'message': _('Passphrase is required')})
-        if 'value' not in kwargs:
-            return json.dumps({'status': 'error',
-                               'message': _('Value is required')})
-        return json.dumps(
-            request.env['iot.device.input'].sudo().get_device_input(
-                serial, kwargs['passphrase'], kwargs['value']))
+        try:
+            result = request.env['iot.device.input'].sudo().get_device(
+            serial, kwargs['passphrase']).call_device(kwargs['value'])
+            if 'status' not in result or 'message' not in result:
+                result = {
+                    'status': 'ok',
+                    'message': _('All processed properly'),
+                    'result': result,
+                }
+            return json.dumps(result)
+        except Exception:
+            request.env.cr.rollback()
+            buff = StringIO()
+            traceback.print_exc(file=buff)
+            logger.error(buff.getvalue())
+            return json.dumps({
+                "status": "error",
+                "message": _('Something went wrong')
+            })
 
     @http.route([
         '/iot/<serial>/check',
