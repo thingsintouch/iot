@@ -140,14 +140,12 @@
         <field name="name">IoT Devices</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">iot.device</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
     <record model="ir.actions.act_window" id="iot_device_action">
         <field name="name">IoT Devices</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">iot.device</field>
-        <field name="view_type">form</field>
         <field name="view_mode">kanban</field>
     </record>
     <menuitem
