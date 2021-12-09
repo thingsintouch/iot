@@ -16,8 +16,8 @@ class IoTDevice(models.Model):
     # TODO: On 14 remove passpharse and device_identification.
     #  Create a multiparameter input in order to manage this
     state = fields.Selection([], readonly=True)
-    model = fields.Char()
-    ip = fields.Char()
+    model = fields.Char(string="Device Model")
+    ip = fields.Char(string="IP")
     action_count = fields.Integer(compute="_compute_action_count")
     group_id = fields.Many2one("iot.device.group")
     tag_ids = fields.Many2many("iot.device.tag")

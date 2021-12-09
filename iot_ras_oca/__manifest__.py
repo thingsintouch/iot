@@ -9,5 +9,9 @@
     "installable": True,
     "summary": "IoT base module",
     "depends": ["iot_template_oca", "hr_attendance_rfid"],
-    "data": ["data/ras_template.xml"],
+    "data": [
+        "data/ras_template.xml",
+        'views/hr_attendance_view.xml',
+        'views/iot_ras_device_views.xml'
+        ],
 }
