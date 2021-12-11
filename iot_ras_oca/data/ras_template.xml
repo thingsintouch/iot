@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="ras_property_card_registered" model="iot.device.property">
+        <field name="name">Card registered</field>
+        <field name="tech_name">card_registered</field>
+        <field name="widget">char</field>
+        <field name="default_value">Registered</field>
+    </record>
+    <!--TODO: Pass all parameters in a similar way-->
     <record id="ras_template" model="iot.template">
         <field name="name">thingsintouch.ras</field>
+        <field name="property_ids" eval="[(4, ref('ras_property_card_registered'))]" />
     </record>
-    <record id="ras_template_input_1" model="iot.template.input">
+    <record id="ras_template_input_sync" model="iot.template.input">
         <field name="template_id" ref="ras_template"/>
         <field name="name">sync_clocking</field>
         <field name="call_model_id" ref="hr.model_hr_employee"/>
         <field name="call_function">register_attendance</field>
         <field name="params">{}</field>
     </record>
-    <record id="ras_template_input_2" model="iot.template.input">
+    <record id="ras_template_input_async" model="iot.template.input">
         <field name="template_id" ref="ras_template"/>
         <field name="name">async_clocking</field>
         <field name="call_model_id" ref="hr.model_hr_employee"/>
         <field name="call_function">register_attendance_async</field>
+        <field name="params">{}</field>
+    </record>
+    <record id="ras_template_input_options" model="iot.template.input">
+        <field name="template_id" ref="ras_template"/>
+        <field name="name">get_options</field>
+        <field name="call_function">get_options</field>
         <field name="params">{}</field>
     </record>
 </odoo>

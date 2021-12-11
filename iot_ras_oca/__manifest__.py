@@ -5,13 +5,10 @@
     "version": "13.0.1.0.0",
     "category": "IoT",
     "author": "Creu Blanca, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/iot",
     "license": "AGPL-3",
     "installable": True,
     "summary": "IoT base module",
-    "depends": ["iot_template_oca", "hr_attendance_rfid"],
-    "data": [
-        "data/ras_template.xml",
-        'views/hr_attendance_view.xml',
-        'views/iot_ras_device_views.xml'
-        ],
+    "depends": ["hr_attendance_rfid", "iot_option_oca"],
+    "data": ["data/ras_template.xml"],
 }
