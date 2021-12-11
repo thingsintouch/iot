@@ -9,6 +9,7 @@
                 <field name="device_identification" />
                 <field name="system_id" />
                 <field name="model" />
+                <field name="group_id" />
                 <field name="ip" />
             </tree>
         </field>
