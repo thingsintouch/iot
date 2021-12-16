@@ -17,8 +17,9 @@ class CallIot(http.Controller):
     def configure_iot(self, serial, *args, **kwargs):
         request = http.request
         template = kwargs.get("template", False)
+        ip = kwargs.get("ip", False)
         if not request.env:
             return json.dumps(False)
         return json.dumps(
-            request.env["iot.device.configure"].sudo().configure(serial, template)
+            request.env["iot.device.configure"].sudo().configure(serial, template, ip = ip)
         )

@@ -1,15 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="ras_property_device_name" model="iot.device.property">
+        <field name="name">Device Name on Display</field>
+        <field name="tech_name">RASxxx</field>
+        <field name="widget">char</field>
+        <field name="default_value">RAS</field>
+    </record>
+    <record id="ras_property_tz" model="iot.device.property">
+        <field name="name">Timezone</field>
+        <field name="tech_name">tz</field>
+        <field name="widget">char</field>
+        <field name="default_value">Europe/Berlin</field>
+    </record>
+    <record id="ras_property_time_format" model="iot.device.property">
+        <field name="name">Time Format</field>
+        <field name="tech_name">time_format</field>
+        <field name="widget">char</field>
+        <field name="default_value">12 hour</field>
+    </record>
     <record id="ras_property_card_registered" model="iot.device.property">
-        <field name="name">Card registered</field>
+        <field name="name">Display: Card Registered</field>
         <field name="tech_name">card_registered</field>
         <field name="widget">char</field>
-        <field name="default_value">Registered</field>
+        <field name="default_value">REGISTERED</field>
     </record>
+    <record id="ras_property_too_soon" model="iot.device.property">
+        <field name="name">Display: Too Soon</field>
+        <field name="tech_name">too_little_time_between_clockings</field>
+        <field name="widget">char</field>
+        <field name="default_value">TOO SOON</field>
+    </record>
+    <record id="ras_property_min_time" model="iot.device.property">
+        <field name="name">Minimum Time between Clockings [s]</field>
+        <field name="tech_name">minimumTimeBetweenClockings</field>
+        <field name="widget">integer</field>
+        <field name="default_value">300</field>
+    </record>
+    <record id="ras_property_period_routine" model="iot.device.property">
+        <field name="name">Period between Routine Checks [s]</field>
+        <field name="tech_name">period_odoo_routine_check</field>
+        <field name="widget">integer</field>
+        <field name="default_value">14</field>
+    </record>
+    <record id="ras_property_period_clockings" model="iot.device.property">
+        <field name="name">Period between Calls to Register Async Clockings [s]</field>
+        <field name="tech_name">period_register_clockings</field>
+        <field name="widget">integer</field>
+        <field name="default_value">14</field>
+    </record>
+    <record id="ras_property_time_after_clocking" model="iot.device.property">
+        <field name="name">Time to Display Result after Clocking [s]</field>
+        <field name="tech_name">timeToDisplayResultAfterClocking</field>
+        <field name="widget">float</field>
+        <field name="default_value">1.2</field>
+    </record>
+    <record id="ras_property_update" model="iot.device.property">
+        <field name="name">Update Firmware and Reboot</field>
+        <field name="tech_name">shouldGetFirmwareUpdate</field>
+        <field name="widget">boolean</field>
+        <field name="is_action" eval="True"/>
+    </record>
+    <record id="ras_property_shutdown" model="iot.device.property">
+        <field name="name">Shutdown</field>
+        <field name="tech_name">shutdownTerminal</field>
+        <field name="widget">boolean</field>
+        <field name="is_action" eval="True"/>
+    </record>
+    <record id="ras_property_reboot" model="iot.device.property">
+        <field name="name">Reboot</field>
+        <field name="tech_name">rebootTerminal</field>
+        <field name="widget">boolean</field>
+        <field name="is_action" eval="True"/>
+    </record>
+    <record id="ras_property_partial_reset" model="iot.device.property">
+        <field name="name">Partial Factory Reset</field>
+        <field name="tech_name">partialFactoryReset</field>
+        <field name="widget">boolean</field>
+        <field name="is_action" eval="True"/>
+    </record>
+    <record id="ras_property_full_reset" model="iot.device.property">
+        <field name="name">Full Factory Reset</field>
+        <field name="tech_name">fullFactoryReset</field>
+        <field name="widget">boolean</field>
+        <field name="is_action" eval="True"/>
+    </record>
+    <record id="ras_property_setup_password" model="iot.device.property">
+        <field name="name">Setup Password</field>
+        <field name="tech_name">setup_password</field>
+        <field name="widget">char</field>
+        <field name="default_value">changeme</field>
+    </record>
+
+
     <!--TODO: Pass all parameters in a similar way-->
     <record id="ras_template" model="iot.template">
         <field name="name">thingsintouch.ras</field>
-        <field name="property_ids" eval="[(4, ref('ras_property_card_registered'))]" />
+        <field name="property_ids" eval="[
+            (4, ref('ras_property_device_name')),
+            (4, ref('ras_property_card_registered')),
+            (4, ref('ras_property_too_soon')),
+            (4, ref('ras_property_tz')),
+            (4, ref('ras_property_time_format')),
+            (4, ref('ras_property_setup_password')),
+            (4, ref('ras_property_time_format')),
+            (4, ref('ras_property_min_time')),
+            (4, ref('ras_property_period_routine')),
+            (4, ref('ras_property_period_clockings')),
+            (4, ref('ras_property_time_after_clocking')),
+            (4, ref('ras_property_update')),
+            (4, ref('ras_property_shutdown')),
+            (4, ref('ras_property_reboot')),
+            (4, ref('ras_property_partial_reset')),
+            (4, ref('ras_property_full_reset')),
+            ]"/>
     </record>
     <record id="ras_template_input_sync" model="iot.template.input">
         <field name="template_id" ref="ras_template"/>
